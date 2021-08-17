@@ -3,7 +3,7 @@
   if (!isset($_SESSION['id'])) {
     header('Location: login.php');
   }
-  require 'database.php';
+  require '../config/database.php';
 
   $message = '';
 

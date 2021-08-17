@@ -5,7 +5,7 @@ try {
     header('Location: index.php');
   }
 
-  require 'database.php';
+  require '../config/database.php';
 
   if(isset($_POST['submit'])) {
     $message = '';

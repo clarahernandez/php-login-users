@@ -1,6 +1,6 @@
 <?php
 
-  require 'database.php';
+require '../config/database.php';
 
   try {
     if (!isset($_GET['id'])) {
