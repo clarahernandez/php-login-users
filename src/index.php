@@ -1,32 +1,51 @@
 <?php
   session_start();
+  
   if (!isset($_SESSION['id'])) {
     header('Location: login.php');
   }
   require '../config/database.php';
 
-  $message = '';
+  $error = '';
+  $success = '';
 
   $stmt = $db->query("SELECT * FROM users;");
   $users = [];
   if($stmt != false){
       $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
   }  else {
-    $message = "No se pudo obtener los datos.";
+    $error = "No se pudo obtener los datos.";
+  }
+  
+  if (isset($_GET['error'])) {
+    $success = '';
+    $error = $_GET['error'];
+  } elseif (isset($_GET['success'])){
+    $error = '';
+    $success = $_GET['success'];
+  } else {
+    $error = '';
+    $success = '';
   }
 ?>
 
 <?php require 'partials/header.php' ?>
 
 
-  <?php if(!empty($message)): ?>
-      <p> <?= $message ?></p>
-    <?php endif; ?> 
-      <h3>List of users </h3>
-      <a href="create.php">Add new user</a>
+      <?php if(!empty($error)): ?>
+          <p class="error"> <?= $error ?></p>
+      <?php endif; ?> 
 
+      <?php if(!empty($success)): ?>
+          <p class="success"> <?= $success ?></p>
+      <?php endif; ?> 
+
+      <div class="container1">
+        <span class="title">List of users </h3>
+        <a href="create.php" class="button-add">Add +</a>
+      </div>
       <table>
-        <tr>
+        <tr class="table-header">
           <td>Id</td>
           <td>Name</td>
           <td>Email</td>
@@ -36,12 +55,12 @@
           foreach ($users as $user) {
             ?>
             <tr>
-              <td><?php echo $user['id']; ?></td>
+              <td class="td"><?php echo $user['id']; ?></td>
               <td><?php echo $user['name']; ?></td>
               <td><?php echo $user['email']; ?></td>
               <td>
-                <a href="show.php?id=<?php echo $user['id']; ?>">Show/Update</a> | 
-                <a href="delete.php?id=<?php echo $user['id']; ?>">Delete</a></td>
+                <a class="button-show" href="show.php?id=<?php echo $user['id']; ?>">Show/Update</a>  
+                <a class="button-delete" href="delete.php?id=<?php echo $user['id']; ?>">Delete</a></td>
             </tr>
             <?php
           }

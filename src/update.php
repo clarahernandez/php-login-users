@@ -12,16 +12,24 @@
       $name = $_POST['name'];
       $email = $_POST['email'];
 
-      $stmt = $db->prepare("UPDATE users SET name = ?, email = ? WHERE id = ?;");
-      $result = $stmt->execute([$name, $email, $id]);
+      $select = $db->prepare("SELECT * FROM users WHERE email = '$email';");
+      $select->execute();
+      $resultado = $select->fetch(PDO::FETCH_OBJ);
 
-      if ($result) {
-        $message = 'User updated succesfully.';
+      if ($resultado) {
+        $query = '&success=The email is used.';
       } else {
-        $message = 'Error.';
-      }
-      header("Location: show.php?id=$id&message=$message");
 
+        $stmt = $db->prepare("UPDATE users SET name = ?, email = ? WHERE id = ?;");
+        $result = $stmt->execute([$name, $email, $id]);
+
+        if ($result) {
+          $query = '&success=User updated succesfully.';
+        } else {
+          $query = '&error=Error.';
+        }
+      }
+      header("Location: show.php?id=$id$query");
     }
   } catch (Exception $e) {
     echo $e->getMessage();

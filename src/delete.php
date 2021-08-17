@@ -1,22 +1,27 @@
 <?php
 
-require '../config/database.php';
+  require '../config/database.php';
+
+  $queryParam = '';
 
   try {
-    if (!isset($_GET['id'])) {
+    //Validación de la sesión.
+    if (!isset($_SESSION['id'])) {
       header('Location: index.php');
     }
 
     $id = $_GET['id'];
+
+    //Se elimina el usuario de la base de datos
     $stmt = $db->prepare("DELETE FROM users WHERE id = ?;");
     $result = $stmt->execute([$id]);
 
     if ($result) {
-      $message = 'User deleted succesfully.';
+      $queryParam = "success=User deleted succesfully.";
     } else {
-      $message = 'Error.';
+      $queryParam = 'error=Error, try again.';
     }
-    header("Location: index.php?id=$id&message=$message");
+    header("Location: index.php?$queryParam");
 
   } catch (Exception $e) {
     echo $e->getMessage();

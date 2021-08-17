@@ -10,10 +10,11 @@
     <link rel="stylesheet" href="assets/css/style.css">
   </head>
   <body>
-  <header>
-    <a href="index.php">Index</a>
+
+  <ul class="header">
+    <li><a href="index.php">Index</a></li>
 
     <?php if(isset($_SESSION['id'])): ?>
-      <a href="logout.php">Logout</a>
+      <li><a href="logout.php">Logout</a></li>
     <?php endif; ?>
-  </header>
+  </ul>
