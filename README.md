@@ -1,10 +1,8 @@
 # php-login-users
-Login + crud users
+## Login + crud users
+Php + Mysql
 
+To use this project, its necessary to have a mysql database with the columns 'id', 'name', 'email' and 'password'. 
 
-Para usar el proyecto se necesita crear una base de datos con las columnas id, name, email y password.
+The configuration of the database are located in the file database.php in the config directory.
 
-
-# TODO:
-    * Falta validar la confirmación de la contraseña
-    

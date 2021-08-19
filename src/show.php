@@ -8,12 +8,12 @@
   require '../config/database.php';
 
   try {
-    //Validación de la sesión.
+    //Session validation.
     if (!isset($_GET['id'])) {
       header('Location: index.php');
     }
 
-    //Se setea si hay algún mensaje para mostrar
+    //We get the messages from the query if exists.
     if (isset($_GET['error'])) {
       $success = '';
       $error = $_GET['error'];
@@ -27,7 +27,7 @@
 
     $id = $_GET['id'];
 
-    //Se busca en la base de datos el usuario.
+    //We search the user form the database.
     $stmt = $db->prepare("SELECT id,name,email FROM users WHERE id = ?");
     $stmt->execute([$id]);
     $user = $stmt->fetch(PDO::FETCH_OBJ);

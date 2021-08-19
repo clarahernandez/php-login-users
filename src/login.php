@@ -17,17 +17,19 @@
         $email = $_POST['email'];
         $password = $_POST['password'];
 
+        //We check if the user exists in the database.
         $stmt = $db->prepare("SELECT * FROM users WHERE email = '$email';");
         $stmt->execute();
         $user = $stmt->fetch(PDO::FETCH_OBJ);
 
+        //Credentials validation
         if ($user === FALSE || !password_verify($password, $user->password)) {
           $error = 'Invalid email or password.';
         } else {
           $_SESSION['id'] = $user->id;
           header('Location: index.php');
         }
-      } else {
+      } else { //Inputs validation.
         $error = 'Inputs cannot be empty.';
       }
     }

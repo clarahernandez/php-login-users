@@ -8,7 +8,8 @@
 
   try {
     if (isset($_POST['create'])) {
-      //Se valida que los campos no vengan vacíos.
+
+      //Empty fields validation.
       if (empty($_POST['name']) ||
           empty($_POST['email']) ||
           empty($_POST['password'])
@@ -17,10 +18,10 @@
       } else {
         $name = $_POST['name'];
         $email = $_POST['email'];
-        $password = password_hash($_POST['password'], PASSWORD_BCRYPT); //encriptación de la contraseña
+        $password = password_hash($_POST['password'], PASSWORD_BCRYPT); //Password encryptation
 
 
-        //Validación de que el mail es único.
+        //Unique email validation.
         $select = $db->prepare("SELECT * FROM users WHERE email = '$email';");
         $select->execute();
         $userExists = $select->fetch(PDO::FETCH_OBJ);
@@ -31,15 +32,15 @@
           $error = 'No valid email.';
         } else {
 
-          //Creación del usuario en la base de datos.
+          //User creation in the database.
           $stmt = $db->prepare("INSERT INTO users (name, email, password) VALUES ('$name', '$email', '$password')");      
           $result = $stmt->execute();
     
           if ($result) {
-            $error = '';
+            $error = ''; //clean errors
             $success = 'User created successfully.';
           } else {
-            $success = '';
+            $success = ''; //clean success
             $error = 'Sorry there must have been an issue creating the new user. Try again.';
           }
         }

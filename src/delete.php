@@ -5,14 +5,14 @@
   $queryParam = '';
 
   try {
-    //Validación de la sesión.
+    //Session validation.
     if (!isset($_SESSION['id'])) {
       header('Location: index.php');
     }
 
     $id = $_GET['id'];
 
-    //Se elimina el usuario de la base de datos
+    //We delete the user from the database.
     $stmt = $db->prepare("DELETE FROM users WHERE id = ?;");
     $result = $stmt->execute([$id]);
 
@@ -21,6 +21,7 @@
     } else {
       $queryParam = 'error=Error, try again.';
     }
+    
     header("Location: index.php?$queryParam");
 
   } catch (Exception $e) {

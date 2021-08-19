@@ -12,6 +12,7 @@
       $name = $_POST['name'];
       $email = $_POST['email'];
 
+      //We search if the user email exists in the database.
       $select = $db->prepare("SELECT * FROM users WHERE email = '$email';");
       $select->execute();
       $resultado = $select->fetch(PDO::FETCH_OBJ);

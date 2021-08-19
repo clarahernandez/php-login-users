@@ -9,14 +9,16 @@
   $error = '';
   $success = '';
 
+  //Get the list of users from the database.
   $stmt = $db->query("SELECT * FROM users;");
   $users = [];
   if($stmt != false){
       $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
   }  else {
-    $error = "No se pudo obtener los datos.";
+    $error = "Error getting the data.";
   }
   
+  //We get the messages from the query.
   if (isset($_GET['error'])) {
     $success = '';
     $error = $_GET['error'];

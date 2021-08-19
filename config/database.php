@@ -1,9 +1,10 @@
 <?php
 
+//Configuration:
 $server = 'localhost';
-$username = 'root';
-$password = '1234';
-$database = 'PHP_LOGIN_USERS';
+$username = '';
+$password = '';
+$database = '';
 
 try {
   $db = new PDO(
