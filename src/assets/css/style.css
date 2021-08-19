@@ -84,7 +84,7 @@ table {
 
 /* Buttons */
 .button-add {
-  background-color: #4CAF50; /* Green */
+  background-color: #4CAF50;
   border: none;
   color: white;
   padding: 10px 15px;
@@ -93,10 +93,14 @@ table {
   display: inline-block;
   font-size: 16px;
   border-radius: 7px;
-
 }
+
+.button-add:hover {
+  background-color: #138116; 
+}
+
 .button-delete {
-  background-color: rgb(167, 27, 27);
+  background-color: #a71b1b;
   border: none;
   color: white;
   padding: 8px 10px;
@@ -105,8 +109,12 @@ table {
   display: inline-block;
   font-size: 10px;
   border-radius: 5px;
-
 }
+
+.button-delete:hover {
+  background-color: #7e0909;
+}
+
 .button-show {
   background-color: #abbb18;
   border: none;
@@ -117,5 +125,8 @@ table {
   display: inline-block;
   font-size: 10px;
   border-radius: 5px;
+}
 
+.button-show:hover {
+  background-color: #77830c;
 }

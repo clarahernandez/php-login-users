@@ -2,6 +2,8 @@
 
   require '../config/database.php';
 
+  $REGEX = "/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/";
+
   $error = '';
 
   try {
@@ -17,6 +19,7 @@
         $email = $_POST['email'];
         $password = password_hash($_POST['password'], PASSWORD_BCRYPT); //encriptación de la contraseña
 
+
         //Validación de que el mail es único.
         $select = $db->prepare("SELECT * FROM users WHERE email = '$email';");
         $select->execute();
@@ -24,6 +27,8 @@
 
         if ($userExists) {
           $error = 'The email is used.';
+        } elseif (!filter_var( $email, FILTER_VALIDATE_EMAIL)) {
+          $error = 'No valid email.';
         } else {
 
           //Creación del usuario en la base de datos.
@@ -60,7 +65,6 @@
     <input name="name" type="text" placeholder="Enter your name">
     <input name="email" type="text" placeholder="Enter your email">
     <input name="password" type="password" placeholder="Enter your Password">
-    <input name="confirm_password" type="password" placeholder="Confirm Password">
 
     <?php if(!empty($error)): ?>
       <p class="error"> <?= $error ?></p>
